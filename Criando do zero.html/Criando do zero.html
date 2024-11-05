@@ -1,0 +1,172 @@
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <title>GeekBR</title>
+        <style>
+            body {
+                background-color: #1a2b48; /* Cor de fundo mais suave e moderna */
+                color: #e1e1e1; /* Texto em cor mais clara para contraste */
+                text-align: center; /* Centraliza todo o conteúdo */
+                font-family: 'Arial', sans-serif;
+                margin: 0;
+                padding: 0;
+            }
+            h1, h2, h3, h4, h5 {
+                color: #39ff14; /* Verde neon para os títulos */
+                font-weight: bold;
+            }
+            p, ol, table, a {
+                margin: 20px auto;
+                max-width: 900px; /* Centraliza e define limite de largura */
+            }
+            hr {
+                border: 1px solid #39ff14;
+                margin-bottom: 20px;
+            }
+            ul, ol {
+                text-align: left; /* Mantém listas alinhadas à esquerda */
+                display: inline-block; /* Para manter a centralização geral */
+                color: #e1e1e1;
+            }
+            img {
+                border-radius: 10px; /* Borda arredondada para a imagem */
+                margin-bottom: 20px;
+            }
+            button {
+                background-color: #39ff14; /* Cor chamativa para os botões */
+                color: #1a2b48; /* Contraste de cor para texto no botão */
+                border: none;
+                padding: 10px 20px;
+                font-size: 16px;
+                margin: 5px;
+                cursor: pointer;
+                border-radius: 8px;
+                transition: background-color 0.3s ease;
+            }
+            button:hover {
+                background-color: #27a33d; /* Muda cor ao passar o mouse */
+            }
+            button a {
+                color: inherit; /* Herdar a cor do botão */
+                text-decoration: none; /* Remove sublinhado do link */
+            }
+            input[type="submit"], input[type="reset"] {
+                background-color: #39ff14;
+                color: #1a2b48;
+                border: none;
+                padding: 10px 20px;
+                cursor: pointer;
+                font-weight: bold;
+                border-radius: 8px;
+                margin-top: 10px;
+            }
+            input[type="submit"]:hover, input[type="reset"]:hover {
+                background-color: #27a33d; /* Troca de cor ao passar o mouse */
+            }
+            table {
+                margin: 0 auto; /* Centraliza a tabela */
+                background-color: #f8f8f8; /* Tabela com fundo branco */
+                color: #141414;
+                width: 20%;
+                border-collapse: collapse;
+                border-radius: 8px;
+            }
+            th, td {
+                padding: 10px;
+                border: 1px solid #ddd;
+            }
+            th {
+                background-color: #39ff14; /* Cor de fundo do cabeçalho da tabela */
+                color: #1a2b48; /* Texto do cabeçalho */
+            }
+            a {
+                color: #39ff14; /* Cor chamativa para o link */
+                text-decoration: none;
+                font-weight: bold;
+            }
+            a:hover {
+                color: #ffffff; /* Muda cor ao passar o mouse */
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Cena Geek</h1>
+        <h2>Voltado ao público Geek</h2>
+        <hr>
+        <p>Site voltado à facilitação de contato e contratação de pessoas envolvidas no cenario geek, etc..</p>
+        <br>
+        <img src="Geek.png" alt="Geek cenas" width="700" height="500">
+
+        <h3>Organizaremos da seguinte maneira:</h3>
+
+        <div>
+            <!-- Botões organizados e funcionais -->
+            <button><a href="Editores.html">Editores</a></button>
+            <button><a href="Beatmakers.html">Beatmakers</a></button>
+            <button><a href="Thumbmakers.html">Thumbmakers</a></button>
+            <button><a href="Desenhistas.html">Desenhistas</a></button>
+            <button><a href="Reacts.html">Reacts</a></button>
+            <button><a href="Cantores.html">Cantores</a></button>
+        </div>
+
+        <br>
+        <ol type="1">
+            <li>A organização dos participantes não é por mérito, inscritos ou fama.</li>
+            <li>Lembre-se que o conteúdo é organizado por uma pessoa; logo, se faltar pessoas, entre em contato antes para resolução.</li>
+        </ol>
+
+        <h4>Faça seu login para visualização do conteúdo</h4>
+        <table>
+            <thead> 
+                <tr> 
+                    <th colspan="2">LOGIN</th> 
+                </tr>
+            </thead>
+            <tbody>
+                <tr> 
+                    <td>Usuário</td> 
+                    <td>    
+                        <input autofocus type="text" name="nome" maxlength="12"><br>
+                    </td> 
+                </tr>
+                <tr> 
+                    <td>Senha</td> 
+                    <td>
+                        <input type="password" name="senha" maxlength="15"><br> 
+                    </td> 
+                </tr>
+                <tr> 
+                    <td>Código</td>
+                    <td>
+                        <input type="text" name="codigo" maxlength="13"><br>
+                    </td> 
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="2">
+                        <input type="submit" value="Entrar">
+                        <input type="reset" value="Limpar">
+                    </td>
+                </tr>
+            </tfoot>
+            <tbody>
+                <tr>
+                    <td>Perfil</td>
+                    <td>
+                        <select>
+                            <option>Visitante</option>
+                            <option>Artista</option>
+                            <option>Administrador</option>
+                        </select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h5>Recomendação</h5>
+        <p>Gostaria de recomendar o site que beneficia vários editores de vídeos. Facilmente você pode ver, de tabela, uma gama de variedade de trabalhos do mesmo editor se gostar.</p>
+        <a href="https://toona.io/discover?sort=upvoted&filter=all&page=0" target="_blank">Edições Geek!!</a>
+    </body>
+</html>
