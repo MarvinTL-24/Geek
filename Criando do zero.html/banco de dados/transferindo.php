@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 $nome = $_POST["nome"];
 $valor1 = $_POST["valor1"];
 $valor2 = $_POST["valor2"];
@@ -8,33 +10,54 @@ $contato2 = $_POST["contato2"];
 $categoria = $_POST["categoria"];
 $portfolio = $_POST["portfolio"];
 
-$imagem = file_get_contents($_FILES['imagem']['tmp_name']); // Lembre-se de que você não precisa disso, se estiver apenas salvando o caminho da imagem
+if (isset($_FILES['imagem'])) {
+    // Verificar se o arquivo é uma imagem
+    $imagemTipo = mime_content_type($_FILES['imagem']['tmp_name']);
+    if (strpos($imagemTipo, 'image/') === false) {
+        echo "O arquivo enviado não é uma imagem.";
+        exit;
+    }
 
-// Conexão com o banco de dados
-$conn = new mysqli('localhost', 'root', '', 'geek'); 
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-} else {
-    $pasta = 'imagem/'; // Certifique-se de que essa pasta existe e tem permissões de escrita
+    // Definir o caminho para salvar a imagem
+    $pasta = 'imagem/';
+    if (!is_dir($pasta)) {
+        mkdir($pasta, 0777, true);  // Cria a pasta se não existir
+    }
+    
     $imagemNome = basename($_FILES['imagem']['name']);
     $imagemPath = $pasta . uniqid() . '_' . $imagemNome; // Gera um nome único para evitar conflitos
 
-    if (move_uploaded_file($_FILES['imagem']['tmp_name'], $imagemPath)) {
-        // Inserir o caminho da imagem no banco de dados
-        $sql = "INSERT INTO trabalhadores (nome,imagem,valor1,valor2,valor3,contato1,contato2,portfolio,categoria) VALUES ('$nome' '$imagemPath' '$valor1' '$valor2' '$valor3' '$contato1' '$contato2' '$portfolio' '$categoria')";
-        
-        if (mysqli_query($conn, $sql)) { 
-            session_start();
-            if (mysqli_affected_rows($conn)) {   
+    // Verifica se o upload ocorreu sem erro
+    if ($_FILES['imagem']['error'] === UPLOAD_ERR_OK) {
+        if (move_uploaded_file($_FILES['imagem']['tmp_name'], $imagemPath)) {
+            // Conexão com o banco de dados
+            $conn = new mysqli('localhost', 'root', '', 'geek'); 
+            if ($conn->connect_error) {
+                die("Connection failed: " . $conn->connect_error);
+            }
+
+            // Preparar e executar o SQL
+            $stmt = $conn->prepare("INSERT INTO trabalhadores (nome, imagem, valor1, valor2, valor3, contato1, contato2, portfolio, categoria) VALUES ('$nome' '$imagemPath' '$valor1' '$valor2' '$valor3' '$contato1' '$contato2' '$portfolio' '$categoria')");
+            
+            $stmt->bind_param("sssssssss", $nome, $imagemPath, $valor1, $valor2, $valor3, $contato1, $contato2, $portfolio, $categoria);
+
+            if ($stmt->execute()) {
                 $_SESSION["insert"] = "1";
-                header('Location: Preencher.html.php');
-            } else {   
+                header('Location: exibir.php');
+            } else {
                 $_SESSION["insert"] = "2";
-                header('Location: Preencher.html.php');
-            }  
+                header('Location: exibir.php');
+            }
+
+            $stmt->close();
+            $conn->close();
         } else {
-            echo "Falha no comando SQL.";
+            echo "Falha ao mover o arquivo.";
         }
-    }  
+    } else {
+        echo "Erro no upload do arquivo.";
+    }
+} else {
+    echo "Nenhuma imagem foi enviada.";
 }
 ?>
