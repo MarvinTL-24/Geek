@@ -5,7 +5,8 @@ $valor2 = $_POST["Valor2"];
 $valor3 = $_POST["Valor3"];
 $contato1 = $_POST["contato1"];
 $contato2 = $_POST["contato2"];
-$contato3 = $_POST["contato3"];
+$categoria = $_POST["categoria"];
+$portfolio = $_POST["portfolio"];
 
 $imagem = file_get_contents($_FILES['imagem']['tmp_name']); // Lembre-se de que você não precisa disso, se estiver apenas salvando o caminho da imagem
 
@@ -20,7 +21,7 @@ if ($conn->connect_error) {
 
     if (move_uploaded_file($_FILES['imagem']['tmp_name'], $imagemPath)) {
         // Inserir o caminho da imagem no banco de dados
-        $sql = "INSERT INTO  (nome,imagem,valor1,valor2,valor3,contato1,contato2,contato3) VALUES ('$nome' '$imagemPath' '$valor1' '$valor2' '$valor3' '$contato1' '$contato2' '$contato3')";
+        $sql = "INSERT INTO imagens (nome,imagem,valor1,valor2,valor3,contato1,contato2,contato3) VALUES ('$nome' '$imagemPath' '$valor1' '$valor2' '$valor3' '$contato1' '$contato2' '$portfolio')";
         
         if (mysqli_query($conn, $sql)) { 
             session_start();
