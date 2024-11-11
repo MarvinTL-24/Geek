@@ -10,151 +10,51 @@ if (isset($_SESSION['insert'])) {
     }
 }
 
-echo "
-<!DOCTYPE html>
-<html lang='pt-br'>
-<head>
-    <meta charset='UTF-8'>
-    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-    <title>PORTFOLIO-CARD</title>
+// Verifique se o formulário foi enviado
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Receber os dados do formulário
+    $nome = $_POST['nome'];
+    $valor1 = $_POST['valor1'];
+    $valor2 = $_POST['valor2'] ?? ''; // Valor 2 é opcional
+    $contato1 = $_POST['contato1'];
+    $contato2 = $_POST['contato2'] ?? ''; // Contato 2 é opcional
+    $categoria = $_POST['categoria'];
+    $portfolio = $_POST['portfolio'];
+    
+    // Processamento do upload de imagem
+    if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] == 0) {
+        // Diretório para salvar a imagem
+        $upload_dir = 'uploads/';
+        $file_tmp = $_FILES['imagem']['tmp_name'];
+        $file_name = $_FILES['imagem']['name'];
+        
+        // Verifique a extensão da imagem (permitindo apenas JPG)
+        $file_ext = pathinfo($file_name, PATHINFO_EXTENSION);
+        if ($file_ext != 'jpg' && $file_ext != 'jpeg') {
+            die('A imagem deve ser um arquivo JPG ou JPEG.');
+        }
 
-    <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/5.0.2/css/bootstrap.min.css' integrity='sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO' crossorigin='anonymous'>
-    <script src='https://code.jquery.com/jquery-5.0.2.slim.min.js' integrity='sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo' crossorigin='anonymous'></script>
-    <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC' crossorigin='anonymous'>
-    <script src='https://stackpath.bootstrapcdn.com/bootstrap/5.0.2/js/bootstrap.min.js' integrity='sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy' crossorigin='anonymous'></script>
+        // Salvar o arquivo no diretório
+        $file_path = $upload_dir . $file_name;
+        if (move_uploaded_file($file_tmp, $file_path)) {
+            echo 'Imagem enviada com sucesso: ' . $file_name . '<br>';
+        } else {
+            echo 'Erro ao fazer upload da imagem.<br>';
+        }
+    } else {
+        echo 'Nenhuma imagem foi enviada ou houve erro no envio.<br>';
+    }
 
-    <style>
-        body {
-            background-color: #1a2b48;
-            color: #e1e1e1;
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-        h1, h2, h3, h4, h5 {
-            color: #39ff14;
-            font-weight: bold;
-        }
-        .card {
-            border-radius: 10px;
-            background-color: #2c3e50;
-            padding: 30px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            width: 60%;
-            margin: 50px auto;
-        }
-        .form-group label {
-            font-size: 1.2em;
-            font-weight: bold;
-        }
-        .form-control {
-            background-color: #34495e;
-            border: 1px solid #39ff14;
-            color: #fff;
-            padding: 10px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-        }
-        .form-control:focus {
-            border-color: #27a33d;
-            box-shadow: 0 0 5px rgba(39, 163, 61, 0.5);
-        }
-        button, input[type='submit'], input[type='reset'] {
-            background-color: #39ff14;
-            color: #1a2b48;
-            border: none;
-            padding: 12px 30px;
-            font-size: 16px;
-            cursor: pointer;
-            border-radius: 8px;
-            transition: background-color 0.3s ease;
-            width: 100%;
-            margin-top: 20px;
-        }
-        button:hover, input[type='submit']:hover, input[type='reset']:hover {
-            background-color: #27a33d;
-        }
-        .alert {
-            background-color: #39ff14;
-            color: #1a2b48;
-            padding: 15px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-        }
-        .alert-error {
-            background-color: #e74c3c;
-            color: white;
-        }
-        .alert-success {
-            background-color: #2ecc71;
-            color: white;
-        }
-    </style>
-</head>
-<body>
-    <div class='container'>
-        <form action='transferindo.php' method='post' enctype='multipart/form-data'>
-            <div class='card'>
-                <h2 class='text-center'>Cadastrar Informações de Trabalho</h2>
-                
-                <div class='form-group'>
-                    <label for='nome'>Nome:</label>
-                    <input type='text' name='nome' id='nome' class='form-control' required>
-                </div>
-
-                <div class='form-group'>
-                    <label><------------------------------------------------------------------------------------------------------------></label>
-                    <div>
-                        <label for='valor1'>Preço 1:</label>
-                        <input type='text' name='valor1' id='valor1' class='form-control' required>
-                    </div>
-                    <div>
-                        <label for='valor2'>Preço 2 (opcional):</label>
-                        <input type='text' name='valor2' id='valor2' class='form-control'>
-                    </div>
-                </div>
-
-                <div class='form-group'>
-                    <label><------------------------------------------------------------------------------------------------------------></label>
-                    <div>
-                        <label for='contato1'>Contato 1:</label>
-                        <input type='text' name='contato1' id='contato1' class='form-control' required>
-                    </div>
-                    <div>
-                        <label for='contato2'>Contato 2 (opcional):</label>
-                        <input type='text' name='contato2' id='contato2' class='form-control'>
-                    </div>
-                </div>
-
-                <div class='form-group'>
-                    <label><------------------------------------------------------------------------------------------------------------></label>
-                    <label for='categoria'>Escolha uma categoria:</label>
-                    <select name='categoria' id='categoria' class='form-control' required>
-                        <option value='editor'>Editor</option>
-                        <option value='beatmaker'>Beatmaker</option>
-                        <option value='color'>Colorista</option>
-                        <option value='thumbmaker'>Thumbmaker</option>
-                        <option value='react'>Reactor</option>
-                        <option value='cantor'>Cantor</option>
-                        <option value='desenhista'>Desenhista</option>
-                        <option value='recortador'>Recortador</option>
-                    </select>
-                </div>
-
-                <div class='form-group'>
-                    <label for='portfolio'>Link do Portfólio:</label>
-                    <input type='url' name='portfolio' id='portfolio' class='form-control' placeholder='https://seuportfolio.com' required>
-                </div>
-
-                <div class='form-group'>
-                    <label for='imagem'>Escolha uma imagem de perfil:</label>
-                    <input type='file' name='imagem' id='imagem' class='form-control' accept='image/jpeg'>
-                </div>
-
-                <input type='submit' value='Cadastrar' class='btn btn-success'>
-            </div>
-        </form>
-    </div>
-</body>
-</html>";
+    // Exibir os dados recebidos do formulário
+    echo "<h2>Dados recebidos:</h2>";
+    echo "Nome: $nome <br>";
+    echo "Preço 1: $valor1 <br>";
+    echo "Preço 2: $valor2 <br>";
+    echo "Contato 1: $contato1 <br>";
+    echo "Contato 2: $contato2 <br>";
+    echo "Categoria: $categoria <br>";
+    echo "Link do Portfólio: <a href='$portfolio' target='_blank'>$portfolio</a><br>";
+} else {
+    echo "Nenhum dado foi enviado.";
+}
 ?>
