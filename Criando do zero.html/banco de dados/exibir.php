@@ -11,14 +11,13 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
     echo "
     <div class='row'>
         <div class='card col-xl-3 m-3 p-3'>
-            <img src='$linha[imagem]' class='card-img-top' alt='Imagem do aluno'>
+            <img src='$linha[imagem]' class='card-img-top' alt='Imagem'>
             <div class='card-body'>
                 <h5 class='card-title'>$linha[nome]</h5>
                 <p class='card-text'>
                     <i class='far fa-address-card'></i> Preços: <br>
                     <i>Preço 1:</i> $linha[valor1]<br>
                     <i>Preço 2:</i> $linha[valor2]<br>
-                    <i>Preço 3:</i> $linha[valor3]<br><br>
                         
                     <i class='far fa-address-card'></i> Contatos: <br>
                     <i>Contato 1:</i> $linha[contato1]<br>
@@ -34,7 +33,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
         </div>
     </div>";
 } else {
-    echo "Aluno não encontrado.";
+    echo "Informações não são possiveis de cadastrar.";
 }
 
 // Fecha a conexão com o banco de dados

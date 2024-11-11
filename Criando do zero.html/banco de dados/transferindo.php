@@ -4,7 +4,6 @@ session_start();
 $nome = $_POST["nome"];
 $valor1 = $_POST["valor1"];
 $valor2 = $_POST["valor2"];
-$valor3 = $_POST["valor3"];
 $contato1 = $_POST["contato1"];
 $contato2 = $_POST["contato2"];
 $categoria = $_POST["categoria"];
@@ -39,8 +38,8 @@ if (isset($_FILES['imagem'])) {
             }
 
             // Consulta SQL para inserir os dados
-            $sql = "INSERT INTO trabalhadores (nome, imagem, valor1, valor2, valor3, contato1, contato2, portfolio, categoria) 
-                    VALUES ('$nome', '$imagemPath', '$valor1', '$valor2', '$valor3', '$contato1', '$contato2', '$portfolio', '$categoria')";
+            $sql = "INSERT INTO trabalhadores (nome, imagem, valor1, valor2, contato1, contato2, portfolio, categoria) 
+                    VALUES ('$nome', '$imagemPath', '$valor1', '$valor2', '$contato1', '$contato2', '$portfolio', '$categoria')";
 
             // Executar a consulta
             if ($conn->query($sql) === TRUE) {

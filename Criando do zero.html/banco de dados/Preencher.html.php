@@ -103,7 +103,7 @@ echo "
                 </div>
 
                 <div class='form-group'>
-                    <label for='precos'>Quantos preços você quer adicionar?</label>
+                    <label><------------------------------------------------------------------------------------------------------------></label>
                     <div>
                         <label for='valor1'>Preço 1:</label>
                         <input type='text' name='valor1' id='valor1' class='form-control' required>
@@ -112,14 +112,10 @@ echo "
                         <label for='valor2'>Preço 2 (opcional):</label>
                         <input type='text' name='valor2' id='valor2' class='form-control'>
                     </div>
-                    <div>
-                        <label for='valor3'>Preço 3 (opcional):</label>
-                        <input type='text' name='valor3' id='valor3' class='form-control'>
-                    </div>
                 </div>
 
                 <div class='form-group'>
-                    <label for='contatos'>Quantos contatos você quer adicionar?</label>
+                    <label><------------------------------------------------------------------------------------------------------------></label>
                     <div>
                         <label for='contato1'>Contato 1:</label>
                         <input type='text' name='contato1' id='contato1' class='form-control' required>
@@ -131,6 +127,7 @@ echo "
                 </div>
 
                 <div class='form-group'>
+                    <label><------------------------------------------------------------------------------------------------------------></label>
                     <label for='categoria'>Escolha uma categoria:</label>
                     <select name='categoria' id='categoria' class='form-control' required>
                         <option value='editor'>Editor</option>

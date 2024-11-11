@@ -32,7 +32,6 @@ CREATE TABLE `trabalhadores` (
   `nome` varchar(40) NOT NULL,
   `valor1` decimal(10,2) NOT NULL,
   `valor2` decimal(10,2) NOT NULL,
-  `valor3` decimal(10,2) NOT NULL,
   `contato1` varchar(255) NOT NULL,
   `contato2` varchar(255) NOT NULL,
   `portfolio` varchar(255) NOT NULL,
