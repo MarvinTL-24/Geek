@@ -23,25 +23,27 @@ if (isset($_FILES['imagem'])) {
     if (!is_dir($pasta)) {
         mkdir($pasta, 0777, true);  // Cria a pasta se não existir
     }
-    
+
     $imagemNome = basename($_FILES['imagem']['name']);
-    $imagemPath = $pasta . uniqid() . '_' . $imagemNome; // Gera um nome único para evitar conflitos
+    $imagemExt = pathinfo($imagemNome, PATHINFO_EXTENSION);
+    $imagemNomeNovo = uniqid() . '.' . $imagemExt;  // Gera um nome único para evitar conflitos
+    $imagemPath = $pasta . $imagemNomeNovo;
 
     // Verifica se o upload ocorreu sem erro
     if ($_FILES['imagem']['error'] === UPLOAD_ERR_OK) {
         if (move_uploaded_file($_FILES['imagem']['tmp_name'], $imagemPath)) {
             // Conexão com o banco de dados
-            $conn = new mysqli('localhost', 'root', '', 'geek'); 
+            $conn = new mysqli('localhost', 'root', '', 'geek');
             if ($conn->connect_error) {
                 die("Connection failed: " . $conn->connect_error);
             }
 
-            // Preparar e executar o SQL
-            $stmt = $conn->prepare("INSERT INTO trabalhadores (nome, imagem, valor1, valor2, valor3, contato1, contato2, portfolio, categoria) VALUES ('$nome' '$imagemPath' '$valor1' '$valor2' '$valor3' '$contato1' '$contato2' '$portfolio' '$categoria')");
-            
-            $stmt->bind_param("sssssssss", $nome, $imagemPath, $valor1, $valor2, $valor3, $contato1, $contato2, $portfolio, $categoria);
+            // Consulta SQL para inserir os dados
+            $sql = "INSERT INTO trabalhadores (nome, imagem, valor1, valor2, valor3, contato1, contato2, portfolio, categoria) 
+                    VALUES ('$nome', '$imagemPath', '$valor1', '$valor2', '$valor3', '$contato1', '$contato2', '$portfolio', '$categoria')";
 
-            if ($stmt->execute()) {
+            // Executar a consulta
+            if ($conn->query($sql) === TRUE) {
                 $_SESSION["insert"] = "1";
                 header('Location: exibir.php');
             } else {
@@ -49,7 +51,7 @@ if (isset($_FILES['imagem'])) {
                 header('Location: exibir.php');
             }
 
-            $stmt->close();
+            // Fechar a conexão
             $conn->close();
         } else {
             echo "Falha ao mover o arquivo.";
