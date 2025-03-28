@@ -33,19 +33,24 @@
                 border-radius: 10px; /* Borda arredondada para a imagem */
                 margin-bottom: 20px;
             }
+            /* Atualize o estilo dos botões */
             button {
-                background-color: #39ff14; /* Cor chamativa para os botões */
-                color: #1a2b48; /* Contraste de cor para texto no botão */
+                background-color: #39ff14;
+                color: #1a2b48;
                 border: none;
-                padding: 10px 20px;
+                padding: 12px 25px;
                 font-size: 16px;
                 margin: 5px;
                 cursor: pointer;
-                border-radius: 8px;
-                transition: background-color 0.3s ease;
+                border-radius: 50px; /* Borda arredondada */
+                transition: all 0.3s ease;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Adiciona sombra */
+                opacity: 0;
+                animation: fadeIn 1s forwards;
             }
             button:hover {
-                background-color: #27a33d; /* Muda cor ao passar o mouse */
+                background-color: #27a33d;
+                transform: scale(1.05); /* Efeito de zoom ao passar o mouse */
             }
             button a {
                 color: inherit; /* Herdar a cor do botão */
@@ -88,9 +93,40 @@
             a:hover {
                 color: #ffffff; /* Muda cor ao passar o mouse */
             }
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(10px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+            /* Ajuste para telas menores */
+            @media (max-width: 768px) {
+                body {
+                    font-size: 14px;
+                }
+                img {
+                    width: 100%; /* Imagem ocupa toda a largura */
+                    height: auto;
+                }
+                button {
+                    font-size: 14px;
+                    padding: 8px 15px;
+                }
+            }
         </style>
     </head>
     <body>
+        <!-- Adicione dentro do <body>, no topo -->
+        <header style="background-color: #1a2b48; padding: 10px 0; position: fixed; top: 0; width: 100%; z-index: 1000; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);">
+            <h1 style="color: #39ff14; margin: 0; font-size: 24px;">Cena Geek</h1>
+        </header>
+        <!-- Adicione um espaçamento para compensar o header fixo -->
+        <div style="height: 60px;"></div>
+
         <h1>Cena Geek</h1>
         <hr>
         <p>Site voltado à facilitação de contato e contratação de pessoas envolvidas no cenario geek, etc..</p>
@@ -122,5 +158,11 @@
         <h5>Recomendação</h5>
         <p>Gostaria de recomendar o site que beneficia vários editores de vídeos. Facilmente você pode ver, de tabela, uma gama de variedade de trabalhos do mesmo editor se gostar.</p>
         <a href="https://toona.io/discover?sort=upvoted&filter=all&page=0" target="_blank">Edições Geek!!</a>
+
+        <!-- Adicione no final do <body> -->
+        <footer style="background-color: #1a2b48; color: #e1e1e1; padding: 20px 0; text-align: center; margin-top: 20px;">
+            <p>&copy; 2025 Cena Geek. Todos os direitos reservados.</p>
+            <p><a href="mailto:contato@cenageek.com" style="color: #39ff14; text-decoration: none;">contato@cenageek.com</a></p>
+        </footer>
     </body>
 </html>
